@@ -28,5 +28,12 @@ What happens when the user creates a new note in https://studies.cs.helsinki.fi/
         client->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
         activate server
         server-->>client: the JS file
-        deactivate server    
+        deactivate server
+
+        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+        activate server
+        server-->>client: the data.json file
+        deactivate server
+
+        Note right of client: client renders the notes
 ```
