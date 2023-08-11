@@ -2,32 +2,18 @@
 
 # Exercise 0.6
 
-copying prev one for reference
+What happens when client makes a new note in https://studies.cs.helsinki.fi/exampleapp/spa?
 
 ```mermaid
     sequenceDiagram
         participant client
         participant server
         
-        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+        client->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
         activate server
-        server-->>client: the HTML file
-        deactivate server
-        
-        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
-        activate server
-        server-->>client: the CSS file
-        deactivate server
-        
-        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
-        activate server
-        server-->>client: the JS file
+        Note right of client: request contains the new note in JSON format
+        server-->>client: 201 Created, server does not redirect or reload
         deactivate server
 
-        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-        activate server
-        server-->>client: the data.json file
-        deactivate server
-
-        Note right of client: client renders the notes
+        Note right of client: the new note is added to the notes array and the updated array is rendered without reloading the page
 ```
