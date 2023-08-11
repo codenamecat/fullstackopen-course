@@ -30,4 +30,3 @@ What happens when the user creates a new note in https://studies.cs.helsinki.fi/
         server-->>client: the JS file
         deactivate server    
 ```
-
