@@ -2,20 +2,14 @@
 
 # Exercise 0.5
 
-Just copying the prev one to test
+What happens when client navigates to https://studies.cs.helsinki.fi/exampleapp/spa?
 
 ```mermaid
     sequenceDiagram
         participant client
         participant server
         
-        client->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
-        activate server
-        Note right of server: server creates a new note object and pushes it into the notes array
-        server-->>client: 302 redirect /exampleapp/notes
-        deactivate server
-        
-        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
         activate server
         server-->>client: the HTML file
         deactivate server
@@ -25,7 +19,7 @@ Just copying the prev one to test
         server-->>client: the CSS file
         deactivate server
         
-        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+        client->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
         activate server
         server-->>client: the JS file
         deactivate server
