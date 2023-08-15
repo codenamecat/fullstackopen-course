@@ -19,7 +19,7 @@ const App = () => {
     <div>
       <Header course={course} />
       <Content parts={parts} />
-      <Total total={parts[0].exercises + parts[1].exercises + parts[2].exercises} />
+      <Total parts={parts} />
     </div>
   )
 }
@@ -43,7 +43,8 @@ const Part = (props) => {
 }
 
 const Total = (props) => {
-  return <p>Number of exercises {props.total}</p>
+  const total = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises
+  return <p>Number of exercises {total}</p>
 }
 
 export default App
