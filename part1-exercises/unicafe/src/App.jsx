@@ -18,9 +18,9 @@ const App = () => {
   return (
     <div>
       <h1>Give feedback</h1>
-      <Button text='good' handleClick={handleClick} id='good' />
-      <Button text='neutral' handleClick={handleClick} id='neutral' />
-      <Button text='bad' handleClick={handleClick} id='bad' />
+      <Button text='Good' handleClick={handleClick} id='good' />
+      <Button text='Neutral' handleClick={handleClick} id='neutral' />
+      <Button text='Bad' handleClick={handleClick} id='bad' />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
@@ -48,14 +48,23 @@ const Statistics = ({good, neutral, bad}) => {
   return (
     <div>
       <h2>Statistics</h2>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>All: {all}</p>
-      <p>Average: {average}</p>
-      <p>Positive: {positive} %</p>
+      <StatisticLine text='Good' value={good} />
+      <StatisticLine text='Neutral' value={neutral} />
+      <StatisticLine text='Bad' value={bad} />
+      <StatisticLine text='All' value={all} />
+      <StatisticLine text='Average' value={average} />
+      <StatisticLine text='Positive' value={positive} />
     </div>
   )
+}
+
+const StatisticLine = ({text, value}) => {
+
+  if (text === 'Positive') {
+    return <p>{text}: {value} %</p>
+  } else {
+    return <p>{text}: {value}</p>
+  }
 }
 
 export default App
