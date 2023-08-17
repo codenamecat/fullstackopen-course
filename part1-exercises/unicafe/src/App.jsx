@@ -7,11 +7,11 @@ const App = () => {
 
   const handleClick = (event) => {
     if (event.target.id === 'good') {
-      setGood(count => count +1)
+      setGood(count => count + 1)
     } else if (event.target.id === 'neutral') {
-      setNeutral(count => count +1)
+      setNeutral(count => count + 1)
     } else {
-      setBad(count => count +1)
+      setBad(count => count + 1)
     }
   }
 
@@ -30,7 +30,7 @@ const Button = (props) => {
   return <button onClick={props.handleClick} id={props.id}>{props.text}</button>
 }
 
-const Statistics = ({good, neutral, bad}) => {
+const Statistics = ({ good, neutral, bad }) => {
 
   const all = good + neutral + bad
   const average = (good * 1 + neutral * 0 + bad * -1) / all
@@ -48,22 +48,36 @@ const Statistics = ({good, neutral, bad}) => {
   return (
     <div>
       <h2>Statistics</h2>
-      <StatisticLine text='Good' value={good} />
-      <StatisticLine text='Neutral' value={neutral} />
-      <StatisticLine text='Bad' value={bad} />
-      <StatisticLine text='All' value={all} />
-      <StatisticLine text='Average' value={average} />
-      <StatisticLine text='Positive' value={positive} />
+      <table>
+        <tbody>
+          <StatisticLine text='Good' value={good} />
+          <StatisticLine text='Neutral' value={neutral} />
+          <StatisticLine text='Bad' value={bad} />
+          <StatisticLine text='All' value={all} />
+          <StatisticLine text='Average' value={average} />
+          <StatisticLine text='Positive' value={positive} />
+        </tbody>
+      </table>
     </div>
   )
 }
 
-const StatisticLine = ({text, value}) => {
+const StatisticLine = ({ text, value }) => {
 
   if (text === 'Positive') {
-    return <p>{text}: {value} %</p>
+    return (
+      <tr>
+        <td>{text}</td>
+        <td>{value} %</td>
+      </tr>
+    )
   } else {
-    return <p>{text}: {value}</p>
+    return (
+      <tr>
+        <td>{text}</td>
+        <td>{value}</td>
+      </tr>
+    )
   }
 }
 
