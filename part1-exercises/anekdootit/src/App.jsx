@@ -15,6 +15,7 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(defaultVotes)
+  const [mostVotes, setMostVotes] = useState(0)
 
   const getNewAnecdote = () => {
     const randomIndex = Math.floor(Math.random() * anecdotes.length)
@@ -25,14 +26,22 @@ const App = () => {
     const newVotes = [...votes]
     newVotes[selected] += 1
     setVotes(newVotes)
+    const mostVotesIndex = newVotes.indexOf(Math.max(...newVotes))
+    setMostVotes(mostVotesIndex)
   }
+  // if two anecdotes have the same amount of votes, whichever comes first in the anecdotes array is shown
+  // therefore sometimes the selected anecdote reaching the same amount of votes as the top voted will change the top anecdote, sometimes it won't
 
   return (
     <div>
-      {anecdotes[selected]}
+      <h2>Anecdote of the day</h2>
+      <p>{anecdotes[selected]}</p>
       <VotesInfo value={votes[selected]} />
       <Button handleClick={voteUp} text='Vote' />
       <Button handleClick={getNewAnecdote} text='Next anecdote' />
+      <h2>Anecdote with the most votes</h2>
+      <p>{anecdotes[mostVotes]}</p>
+      <VotesInfo value={votes[mostVotes]} />
     </div>
   )
 }
