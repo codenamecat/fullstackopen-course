@@ -11,25 +11,39 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
     'The only way to go fast, is to go well.'
   ]
+  const defaultVotes = new Array(anecdotes.length).fill(0)
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(defaultVotes)
 
   const getNewAnecdote = () => {
     const randomIndex = Math.floor(Math.random() * anecdotes.length)
     setSelected(randomIndex)
   }
 
+  const voteUp = () => {
+    const newVotes = [...votes]
+    newVotes[selected] += 1
+    setVotes(newVotes)
+  }
+
   return (
     <div>
       {anecdotes[selected]}
-      <br />
-      <Button handleClick={getNewAnecdote} />
+      <VotesInfo value={votes[selected]} />
+      <Button handleClick={voteUp} text='Vote' />
+      <Button handleClick={getNewAnecdote} text='Next anecdote' />
     </div>
   )
 }
 
 const Button = (props) => {
-  return <button onClick={props.handleClick}>Next anecdote</button>
+  return <button onClick={props.handleClick}>{props.text}</button>
+}
+
+const VotesInfo = (props) => {
+  const word = props.value === 1 ? 'vote' : 'votes'
+  return <p>has {props.value} {word}</p>
 }
 
 export default App
