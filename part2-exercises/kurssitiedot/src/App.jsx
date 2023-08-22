@@ -33,7 +33,7 @@ const Course = (props) => {
     <div>
       <Header course={props.course} />
       <Content course={props.course} />
-      {/* <Total course={props.course} /> */}
+      <Total course={props.course} />
     </div>
   )
 }
@@ -59,10 +59,13 @@ const Part = (props) => {
   return <p>{props.partname} {props.exercises}</p>
 }
 
-// commenting this out since it's not needed yet and this version is causing errors
-// const Total = (props) => {
-//   const total = props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises
-//   return <p>Number of exercises {total}</p>
-// }
+const Total = (props) => {
+
+  const total = props.course.parts.reduce((acc, curr) => {
+    return acc + curr.exercises
+  }, 0)
+
+  return <p><b>total of {total} exercises</b></p>
+}
 
 export default App
