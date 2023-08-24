@@ -13,8 +13,13 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     const newPerson = {name: newName}
-    setPersons(persons.concat(newPerson))
-    setNewName('') //resetting the input field
+    const existingPerson = persons.find(person => person.name === newName)
+    if (existingPerson) {
+      alert(`${newName} is already added to the phonebook`)
+    } else {
+      setPersons(persons.concat(newPerson))
+      setNewName('') // resetting the input field
+    }
   }
 
   const personElements = persons.map(person => <li key={person.name}>{person.name}</li>)
