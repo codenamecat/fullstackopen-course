@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567' },
-    { name: 'Test Subject', number: '040-1111111' },
-    { name: 'Your Name Here', number: '00000' },
-    { name: 'This Guy', number: '12345' }
-  ])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons')
+      .then(res => {
+        setPersons(res.data)
+      })
+  }, [])
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -78,7 +81,7 @@ const NumberList = ({ persons, search }) => {
 
   const personElements = persons.filter(person => person.name.toLowerCase().startsWith(search.toLowerCase())).map(person => <Number person={person} key={person.name} />)
 
-  return <ul>{personElements.length > 0 ? personElements : <div>No matches found</div>}</ul>
+  return <ul>{personElements.length > 0 ? personElements : <div>No people found</div>}</ul>
 }
 
 const Number = ({ person }) => {
