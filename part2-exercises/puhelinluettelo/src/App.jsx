@@ -13,7 +13,7 @@ const App = () => {
       .then(initialPeople => {
         setPersons(initialPeople)
       })
-  }, [])
+  }, [persons])
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -90,7 +90,7 @@ const NumberList = ({ persons, search }) => {
 }
 
 const Number = ({ person }) => {
-  return <li>{person.name} {person.number}</li>
+  return <li>{person.name} {person.number} <button onClick={() => peopleService.deletePerson(person.id, person.name)}>Delete</button></li>
 }
 
 export default App

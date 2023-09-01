@@ -12,4 +12,11 @@ const createNew = newPerson => {
     return request.then(res => res.data)
 }
 
-export default { getPeople, createNew }
+const deletePerson = (idToDelete, nameToDelete) => {
+    const confirmation = window.confirm(`Delete ${nameToDelete}?`)
+    if (confirmation) {
+        axios.delete(`${baseUrl}/${idToDelete}`)
+    } 
+}
+
+export default { getPeople, createNew, deletePerson }

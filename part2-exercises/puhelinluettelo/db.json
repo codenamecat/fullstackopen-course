@@ -21,34 +21,9 @@
       "id": 4
     },
     {
-      "name": "Testing",
-      "number": "123",
+      "name": "Testing Deletion",
+      "number": "321",
       "id": 5
-    },
-    {
-      "name": "Another Person",
-      "number": "201",
-      "id": 6
-    },
-    {
-      "name": "One More Time",
-      "number": "333",
-      "id": 7
-    },
-    {
-      "name": "Does Module Work",
-      "number": "54321",
-      "id": 8
-    },
-    {
-      "name": "Let's Test Again",
-      "number": "1234",
-      "id": 9
-    },
-    {
-      "name": "Like We Did Last Summer",
-      "number": "5678",
-      "id": 10
     }
   ]
 }
