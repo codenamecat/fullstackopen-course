@@ -34,7 +34,9 @@ const App = () => {
     const existingPerson = persons.find(person => person.name === newName)
 
     if (existingPerson) {
-      alert(`${newName} is already added to the phonebook`)
+      peopleService.changePerson(existingPerson, newNumber)
+      setNewName('')
+      setNewNumber('')
     } else {
       peopleService
         .createNew(newPerson)
