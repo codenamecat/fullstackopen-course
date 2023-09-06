@@ -7,6 +7,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
   const [notifMessage, setNotifMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     peopleService
@@ -35,12 +36,21 @@ const App = () => {
     const existingPerson = persons.find(person => person.name === newName)
 
     if (existingPerson) {
-      peopleService.changePerson(existingPerson, newNumber)
 
-      setNotifMessage(`Changed the number for ${existingPerson.name}`)
-      setTimeout(() => {
-        setNotifMessage(null)
-      }, 4000)
+      peopleService.changePerson(existingPerson, newNumber)
+        .then(res => {
+          if (res?.response.status === 404) {
+            setErrorMessage(`Information of ${existingPerson.name} has already been removed from server`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 4000)
+          } else {
+            setNotifMessage(`Changed the number for ${existingPerson.name}`)
+            setTimeout(() => {
+              setNotifMessage(null)
+            }, 4000)
+          }
+        })
 
       setNewName('')
       setNewNumber('')
@@ -64,7 +74,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notifMessage} />
+      <Notification notifMessage={notifMessage} errorMessage={errorMessage} />
       <SearchPerson search={search} handleChange={handleSearchChange} />
       <h2>Add new person</h2>
       <AddPerson newName={newName} newNumber={newNumber} handleSubmit={addName} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} />
@@ -124,7 +134,7 @@ const Number = ({ person, changeMessage }) => {
   return <li>{person.name} {person.number} <button onClick={() => deleteNumber(person.id, person.name)}>Delete</button></li>
 }
 
-const Notification = ({ message }) => {
+const Notification = ({ notifMessage, errorMessage }) => {
 
   const notificationStyle = {
     backgroundColor: 'lightgreen',
@@ -133,11 +143,22 @@ const Notification = ({ message }) => {
     marginBottom: 10,
   }
 
-  if (message === null) {
+  const errorStyle = {
+    backgroundColor: '#ff7575',
+    fontWeight:'bold',
+    fontSize: 20,
+    marginBottom: 10
+  }
+
+  if (notifMessage === null && errorMessage === null) {
     return null
+  } else if (notifMessage) {
+    return (
+      <div style={notificationStyle}>{notifMessage}</div>
+    )
   } else {
     return (
-      <div style={notificationStyle}>{message}</div>
+      <div style={errorStyle}>{errorMessage}</div>
     )
   }
 }
